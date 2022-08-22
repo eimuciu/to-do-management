@@ -1,0 +1,11 @@
+.form {
+  width: 75%;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form input,
+.form textarea {
+  margin-bottom: 10px;
+}

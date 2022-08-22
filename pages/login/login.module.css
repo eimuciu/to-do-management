@@ -1,0 +1,13 @@
+.button {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.input {
+  margin-bottom: 15px;
+}
+
+.error {
+  color: crimson;
+  font-size: 12px;
+}
