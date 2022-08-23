@@ -7,6 +7,7 @@ import {
   arrayUnion,
   updateDoc,
 } from 'firebase/firestore';
+import type { TodoObj } from '../types/types';
 
 export async function getData(uid: string) {
   try {
@@ -17,7 +18,11 @@ export async function getData(uid: string) {
   }
 }
 
-export async function setData(uid: string, data: any, cb: any) {
+export async function setData(
+  uid: string,
+  data: TodoObj,
+  cb: (a: any) => void,
+) {
   try {
     await updateDoc(doc(db, 'todos', uid), {
       data: arrayUnion(data),
@@ -30,7 +35,11 @@ export async function setData(uid: string, data: any, cb: any) {
   }
 }
 
-export async function updateData(uid: string, data: any, cb: any) {
+export async function updateData(
+  uid: string,
+  data: TodoObj[],
+  cb: (a: any) => void,
+) {
   try {
     await setDoc(doc(db, 'todos', uid), {
       data,

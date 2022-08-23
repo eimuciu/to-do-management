@@ -2,6 +2,7 @@ import { Flex, Box, Heading, Text } from '@chakra-ui/react';
 import { CheckIcon, ViewIcon } from '@chakra-ui/icons';
 import { useRouter } from 'next/router';
 import { useDataCtx } from '../../../store/dataProvider';
+import type { TodoObj } from '../../../types/types';
 
 const main = {
   w: '100%',
@@ -11,7 +12,12 @@ const main = {
   p: '5px 10px',
 };
 
-function SingleTodo({ tobj, changeStatus }: any) {
+interface Props {
+  tobj: TodoObj;
+  changeStatus: (a: TodoObj) => void;
+}
+
+function SingleTodo({ tobj, changeStatus }: Props) {
   const router = useRouter();
   const { data } = useDataCtx();
   return (

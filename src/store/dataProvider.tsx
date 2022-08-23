@@ -2,6 +2,7 @@ import React, { useContext, createContext, useReducer, useEffect } from 'react';
 import { updateData } from '../api/db';
 import { useAuthCtx } from './authProvider';
 import { getData } from '../api/db';
+import { TodoObj } from '../types/types';
 
 const DataContext = createContext({});
 
@@ -9,16 +10,21 @@ interface Props {
   children: JSX.Element;
 }
 
-const initialData: any = [];
+const initialData: [] = [];
 
-export function reducer(state: any, action: any) {
+interface ActionProps {
+  type: string;
+  payload: any;
+}
+
+export function reducer(state: TodoObj[], action: ActionProps) {
   switch (action.type) {
     case 'SET_TODOS':
       return [...action.payload].reverse();
     case 'CHANGE_STATUS':
       const todoIndex = state.indexOf(action.payload.data);
       const newdata = state
-        .map((tobj: any, idx: any) =>
+        .map((tobj: TodoObj, idx: number) =>
           idx === todoIndex
             ? {
                 ...tobj,
@@ -28,7 +34,7 @@ export function reducer(state: any, action: any) {
             : tobj,
         )
         .reverse();
-      updateData(action.payload.uid, newdata, (resdata: any) => {});
+      updateData(action.payload.uid, newdata, (_) => {});
       return newdata.reverse();
     default:
       return state;

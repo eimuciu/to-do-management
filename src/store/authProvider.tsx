@@ -1,4 +1,6 @@
+import { User } from 'firebase/auth';
 import React, { useContext, createContext, useState, useEffect } from 'react';
+import { UserObj } from '../types/types';
 
 const AuthContext = createContext({});
 
@@ -18,7 +20,7 @@ function AuthProvider({ children }: Props) {
     setToken(tkn);
   }, []);
 
-  const login = (tkn: string, credentials: any) => {
+  const login = (tkn: string, credentials: UserObj) => {
     sessionStorage.setItem('tkn', tkn);
     sessionStorage.setItem('usr', JSON.stringify(credentials));
     setToken(tkn);

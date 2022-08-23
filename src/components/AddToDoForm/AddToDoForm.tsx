@@ -4,13 +4,18 @@ import { setData } from '../../api/db';
 import { Input, Textarea, Box, Button } from '@chakra-ui/react';
 import css from './AddToDoForm.module.css';
 import { useDataCtx } from '../../store/dataProvider';
+import type { TodoObj, UserObj } from '../../types/types';
 
 const formValidation = Yup.object({
   title: Yup.string().trim().required('Required'),
   description: Yup.string().trim().required('Required'),
 });
 
-function AddToDoForm({ user }: any) {
+interface Props {
+  user: UserObj;
+}
+
+function AddToDoForm({ user }: Props) {
   const { dispatch } = useDataCtx();
   const formik = useFormik({
     initialValues: { title: '', description: '' },
@@ -24,7 +29,7 @@ function AddToDoForm({ user }: any) {
           ...values,
           status: 'incomplete',
         },
-        (newdata: any) => {
+        (newdata: { data: TodoObj }) => {
           dispatch({ type: 'SET_TODOS', payload: newdata.data });
           action.resetForm();
         },

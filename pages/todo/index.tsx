@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useDataCtx } from '../../src/store/dataProvider';
 import { useAuthCtx } from '../../src/store/authProvider';
 import { Button, Flex } from '@chakra-ui/react';
+import type { TodoObj } from '../../src/types/types';
 
 const Todo: NextPage = () => {
   const router = useRouter();
@@ -11,7 +12,7 @@ const Todo: NextPage = () => {
   const { user } = useAuthCtx();
   const todoidx = Number(router.query.idx);
 
-  const changeStatus = (todo: any) => {
+  const changeStatus = (todo: TodoObj) => {
     dispatch({ type: 'CHANGE_STATUS', payload: { data: todo, uid: user.uid } });
   };
 

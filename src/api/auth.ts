@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
+  UserCredential,
 } from 'firebase/auth';
 
 import { getDoc, doc, setDoc } from 'firebase/firestore';
@@ -17,10 +18,15 @@ async function createdDoc(uid: string) {
   }
 }
 
-export function signin(email: string, password: string): any {
+interface SigninType {
+  token: string;
+  user: { email: string; uid: string };
+}
+
+export function signin(email: string, password: string) {
   return signInWithEmailAndPassword(auth, email, password)
     .then(async (userCredential) => {
-      const user: any = userCredential.user;
+      const user = userCredential.user as any;
       const token = user.accessToken;
       await createdDoc(user.uid);
       return { token, user: { email: user.email, uid: user.uid } };
@@ -31,10 +37,10 @@ export function signin(email: string, password: string): any {
     });
 }
 
-export function signup(email: string, password: string): any {
+export function signup(email: string, password: string) {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user: any = userCredential.user;
+      const user = userCredential.user as any;
       const token = user.accessToken;
       return { token, user: { email: user.email, uid: user.uid } };
     })
@@ -44,7 +50,7 @@ export function signup(email: string, password: string): any {
     });
 }
 
-export function googlesignin(): any {
+export function googlesignin() {
   const provider = new GoogleAuthProvider();
   return signInWithPopup(auth, provider)
     .then(async (result) => {

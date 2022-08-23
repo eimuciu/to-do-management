@@ -7,6 +7,7 @@ import { Flex } from '@chakra-ui/react';
 import AddToDoForm from '../src/components/AddToDoForm/AddToDoForm';
 import Header from '../src/components/Header/Header';
 import TodosList from '../src/components/TodosList/TodosList';
+import type { TodoObj } from '../src/types/types';
 
 const mainContainer = {
   w: '75%',
@@ -29,7 +30,7 @@ const Home: NextPage = () => {
     }
   }, [isUserLoggedIn, router]);
 
-  const changeStatus = (todo: any) => {
+  const changeStatus = (todo: TodoObj) => {
     dispatch({ type: 'CHANGE_STATUS', payload: { data: todo, uid: user.uid } });
   };
 

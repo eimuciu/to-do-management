@@ -5,7 +5,11 @@ const logoutBtn = {
   right: '0',
 };
 
-function Header({ logout }: any) {
+interface Props {
+  logout: () => void;
+}
+
+function Header({ logout }: Props) {
   return (
     <>
       <Button
